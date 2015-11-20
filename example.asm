@@ -1,7 +1,7 @@
 section .data; 
 
 file db "./azucar.txt", 0
-len equ 1024
+len equ 100000
 hola_palabra: db 'Hola Mundo!',10;
 hola_tamanio: equ $-hola_palabra 
 stringu times 9 db '*'
