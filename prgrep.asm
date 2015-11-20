@@ -6,6 +6,7 @@ sys_write equ 4
 stdin equ 0
 stdout equ 1
 stderr equ 3
+archivo db "./test.txt", 0
 
 
 section .data
