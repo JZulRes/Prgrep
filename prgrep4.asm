@@ -1,5 +1,7 @@
 ; prgrep "texto para buscar" archivo.txt
 
+%include 'busqueda_cadenas.asm'
+
 %macro print 2
 	mov ecx, %1
 	mov edx, %2	
@@ -16,7 +18,8 @@
 
 section .bss
 buffer: resb 1024
-
+patron: resb 1024
+texto: resb 20000
 section .data
 is_there: db "El patrón está presente en el texto",0
 is_there_msg: equ $-is_there
@@ -42,9 +45,12 @@ _start:
 	pop eax ;el primer argumento
 	call length_string
 	
+	push eax ;hacer push del texto
+	push ebx ;push del tamaño del texto
 
 	pop eax ;segundo argumento -> nombre del archivo
 	call length_string
+
 
 ;******ABRIR ARCHIVO*******
 	mov ebx, eax
@@ -59,13 +65,12 @@ _start:
 	mov edx, 2000
 	int 80h
 
-;******IMPRIMIR?***********
-	mov eax, 4
-	mov ebx, 1
-	mov ecx, buffer
-	mov edx, 2000
-	int 80h
+;***LLAMADA A LA FN EXTERNA*****
+	push buffer
+	push edx
+	call string_match	
 
+;****CERRAR ARCHIVO*****
 	mov eax, 6
 	int 80h
 
