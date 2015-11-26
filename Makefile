@@ -11,4 +11,7 @@ clean:
 	rm -f *.o
 	rm -f example
 	rm -f exe
-
+	rm prgrep
+	rm prgrep2
+	rm prgrep3
+	rm prgrep4
